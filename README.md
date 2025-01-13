@@ -1,4 +1,4 @@
-## SSH client/server benchmark tool
+# SSH client/server benchmark tool
 
 This is a dumb little script that allows you to benchmark a SSH client/server
 combination in three ways, for all available or specified Key Exchange
@@ -16,14 +16,14 @@ combination of options.
 It will then present a table of the results, averaging across the collected
 samples for each Kex/MAC/Cipher combination.
 
-### Target audience
+## Target audience
 
 People with old and/or slow computers acting as either clients or servers,
 who run some flavour of BSD in one or both ends of a connection, and wishes
 to know how to configure their SSH server and client for best possible
 performance in adverse conditions.
 
-### Platform support
+## Platform support
 Written for and tested on FreeBSD and NetBSD; it is expected to work on other
 BSD flavours and possibly other unices and Linux. I have made no attempt to
 be compatible outside Free/Net/OpenBSD, but will be happy to take bug reports.
@@ -31,7 +31,7 @@ be compatible outside Free/Net/OpenBSD, but will be happy to take bug reports.
 Requires Bourne Shell - `/bin/sh` - and uses non-POSIX features like `echo -n`
 and `local` built-ins. Your mileage with other `sh`-lookalikes may vary.
 
-### Usage
+## Usage
 *NOTE:* Key-based authenticatin *must* be set up ahead of time; password
 authentication is not supported, nor is it sane for a use-case like this.
 
@@ -57,7 +57,7 @@ Basic usage as given by running `bench.sh`:
     Results shown are an average of all collected results for the given host/mode.
 ```
 
-### What to test
+## What to test
 The included `kex.lst`, `macs.lst` and `ciphers.lst` contain lists of Key
 Exchange Algorithms, MACs and Ciphers (respectively) that I typically test
 myself. The script will work without those files; it will then run
@@ -71,12 +71,12 @@ that these are supported by the server. Also, no testing has been done to
 determine what happens if you specify - or your client supports - settings
 that the server does not accept.
 
-### Example output - Pentium-class server
+## Example output - Pentium-class server
 Using modern hardware as the client, and testing NetBSD's `sshd` on a dual
 Pentium Pro 333 MHz, the following seem to be the fastest options (time given
 in seconds unless otherwise shown).
 
-#### Connecting
+### Connecting
 ```
 $ sh bench.sh connect 192.88.99.80 show
 Destination   Mode     MAC        Cipher                  KEX                                 Time
@@ -92,7 +92,7 @@ Destination   Mode     MAC        Cipher                  KEX                   
 192.88.99.80  connect  hmac-sha1  aes128-gcm@openssh.com  sntrup761x25519-sha512@openssh.com  2.01
 ```
 
-#### Sending data
+### Sending data
 ```
 $ sh bench.sh send 192.88.99.80 show
 Destination   Mode  MAC                            Cipher                         KEX                 Time
@@ -108,7 +108,7 @@ Destination   Mode  MAC                            Cipher                       
 192.88.99.80  send  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  5.62
 ```
 
-#### Receiving data
+### Receiving data
 ```
 $ sh bench.sh receive 192.88.99.80 show
 Destination   Mode     MAC                            Cipher                         KEX                 Time
@@ -124,10 +124,10 @@ Destination   Mode     MAC                            Cipher                    
 192.88.99.80  receive  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  5.31
 ```
 
-### Example output - 486-class server
+## Example output - 486-class server
 In comparison, results from an AMD Am5x86-P75 (486-class CPU) running at 133 MHz.
 
-#### Connecting
+### Connecting
 ```
 $ sh bench.sh connect 192.88.99.70 show
 Destination   Mode     MAC        Cipher                  KEX                                 Time
@@ -143,7 +143,7 @@ Destination   Mode     MAC        Cipher                  KEX                   
 192.88.99.70  connect  hmac-sha1  aes128-gcm@openssh.com  sntrup761x25519-sha512@openssh.com  7.61
 ```
 
-#### Sending data
+### Sending data
 ```
 $ sh bench.sh send 192.88.99.70 show
 Destination   Mode  MAC                            Cipher                         KEX                 Time
@@ -159,7 +159,7 @@ Destination   Mode  MAC                            Cipher                       
 192.88.99.70  send  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  35.69
 ```
 
-#### Receiving data
+### Receiving data
 ```
 $ sh bench.sh receive 192.88.99.70 show
 Destination   Mode     MAC                            Cipher                         KEX                 Time
