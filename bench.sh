@@ -90,7 +90,7 @@ showstats() {
             for f in "${_dest}"/"${_mode}"__*.log ; do
                 echo -n "$f " | sed -e 's/\.log//' -e 's/\// /'
                 cut -f 2 -w < "$f" | awk '{s+=$0}END{print s/NR}' RS=" "
-            done | sort -gk 2 | $headcmd | tr '_' ' '
+            done | sort -gk 3 | $headcmd | tr '_' ' '
         ) | column -t
     else
         echo "${_dest} directory not found!"
