@@ -41,19 +41,19 @@ the user.
 Basic usage as given by running `bench.sh`:
 ```
     Usage: ${0} <mode> <destination> [show [<number>]|<iterations>]
-    
+
     Mode is one of 'connect', 'send' or 'receive'.
-    
+
     Destination is a host name or IP, optionally prefixed by username@.
-    
+
     If 'show' is given, benchmarking is skipped and existing results are shown.
     The optional <number> specifies how many of the results are shown; by
     default only the top 10 fastest are displayed.
-    
+
     Alternatively, if instead of 'show' a number is given for <iterations>,
     the benchmark is run that many times before showing the results. The
     <number> can in this case not be overridden.
-    
+
     Results shown are an average of all collected results for the given host/mode.
 ```
 
@@ -79,49 +79,49 @@ in seconds unless otherwise shown).
 ### Connecting
 ```
 $ sh bench.sh connect 192.88.99.80 show
-Destination   Mode     MAC        Cipher                  KEX                                 Time
-192.88.99.80  connect  hmac-sha1  aes128-ctr              curve25519-sha256                   1.72
-192.88.99.80  connect  hmac-sha1  aes128-ctr              curve25519-sha256@libssh.org        1.7
-192.88.99.80  connect  hmac-sha1  aes128-ctr              diffie-hellman-group14-sha256       1.84
-192.88.99.80  connect  hmac-sha1  aes128-ctr              ecdh-sha2-nistp256                  1.67
-192.88.99.80  connect  hmac-sha1  aes128-ctr              sntrup761x25519-sha512@openssh.com  2.02
-192.88.99.80  connect  hmac-sha1  aes128-gcm@openssh.com  curve25519-sha256                   1.77
-192.88.99.80  connect  hmac-sha1  aes128-gcm@openssh.com  curve25519-sha256@libssh.org        1.86
-192.88.99.80  connect  hmac-sha1  aes128-gcm@openssh.com  diffie-hellman-group14-sha256       1.88
-192.88.99.80  connect  hmac-sha1  aes128-gcm@openssh.com  ecdh-sha2-nistp256                  1.67
-192.88.99.80  connect  hmac-sha1  aes128-gcm@openssh.com  sntrup761x25519-sha512@openssh.com  2.01
+Destination   Mode     MAC                            Cipher                         KEX                 Time
+192.88.99.80  connect  umac-128-etm@openssh.com       aes128-ctr                     ecdh-sha2-nistp256  1.63
+192.88.99.80  connect  umac-64@openssh.com            chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  1.63
+192.88.99.80  connect  hmac-sha2-256                  aes128-gcm@openssh.com         ecdh-sha2-nistp256  1.64
+192.88.99.80  connect  hmac-sha2-256                  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  1.64
+192.88.99.80  connect  hmac-sha1-etm@openssh.com      aes128-gcm@openssh.com         ecdh-sha2-nistp256  1.65
+192.88.99.80  connect  hmac-sha2-256                  aes128-ctr                     ecdh-sha2-nistp256  1.65
+192.88.99.80  connect  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  1.65
+192.88.99.80  connect  hmac-sha2-256-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  1.66
+192.88.99.80  connect  hmac-sha1                      aes128-ctr                     ecdh-sha2-nistp256  1.67
+192.88.99.80  connect  hmac-sha1                      aes128-gcm@openssh.com         ecdh-sha2-nistp256  1.67
 ```
 
 ### Sending data
 ```
 $ sh bench.sh send 192.88.99.80 show
 Destination   Mode  MAC                            Cipher                         KEX                 Time
-192.88.99.80  send  hmac-sha1                      aes128-ctr                     ecdh-sha2-nistp256  4.76
-192.88.99.80  send  hmac-sha1                      aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.55
 192.88.99.80  send  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.39
-192.88.99.80  send  hmac-sha1-etm@openssh.com      aes128-ctr                     ecdh-sha2-nistp256  4.66
-192.88.99.80  send  hmac-sha1-etm@openssh.com      aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.89
+192.88.99.80  send  umac-64@openssh.com            chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.5
+192.88.99.80  send  hmac-sha2-256-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.53
 192.88.99.80  send  hmac-sha1-etm@openssh.com      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.56
-192.88.99.80  send  hmac-sha2-256                  aes128-ctr                     ecdh-sha2-nistp256  5.48
-192.88.99.80  send  hmac-sha2-256                  aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.65
+192.88.99.80  send  hmac-sha2-512-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.56
+192.88.99.80  send  umac-128-etm@openssh.com       chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.6
 192.88.99.80  send  hmac-sha2-256                  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.65
-192.88.99.80  send  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  5.62
+192.88.99.80  send  umac-128@openssh.com           chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.73
+192.88.99.80  send  umac-64-etm@openssh.com        chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.75
+192.88.99.80  send  umac-64-etm@openssh.com        aes128-ctr                     ecdh-sha2-nistp256  4.2
 ```
 
 ### Receiving data
 ```
 $ sh bench.sh receive 192.88.99.80 show
 Destination   Mode     MAC                            Cipher                         KEX                 Time
-192.88.99.80  receive  hmac-sha1                      aes128-ctr                     ecdh-sha2-nistp256  4.4
-192.88.99.80  receive  hmac-sha1                      aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.51
-192.88.99.80  receive  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.3
-192.88.99.80  receive  hmac-sha1-etm@openssh.com      aes128-ctr                     ecdh-sha2-nistp256  4.48
-192.88.99.80  receive  hmac-sha1-etm@openssh.com      aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.38
-192.88.99.80  receive  hmac-sha1-etm@openssh.com      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.32
-192.88.99.80  receive  hmac-sha2-256                  aes128-ctr                     ecdh-sha2-nistp256  5.45
-192.88.99.80  receive  hmac-sha2-256                  aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.55
+192.88.99.80  receive  umac-64-etm@openssh.com        chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.18
 192.88.99.80  receive  hmac-sha2-256                  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.29
-192.88.99.80  receive  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  5.31
+192.88.99.80  receive  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.3
+192.88.99.80  receive  umac-128-etm@openssh.com       chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.3
+192.88.99.80  receive  hmac-sha1-etm@openssh.com      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.32
+192.88.99.80  receive  hmac-sha2-512-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.38
+192.88.99.80  receive  umac-64@openssh.com            chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.39
+192.88.99.80  receive  umac-128@openssh.com           chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.4
+192.88.99.80  receive  hmac-sha2-256-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  3.62
+192.88.99.80  receive  umac-64@openssh.com            aes128-ctr                     ecdh-sha2-nistp256  4.1
 ```
 
 ## Example output - 486-class server
@@ -130,47 +130,47 @@ In comparison, results from an AMD Am5x86-P75 (486-class CPU) running at 133 MHz
 ### Connecting
 ```
 $ sh bench.sh connect 192.88.99.70 show
-Destination   Mode     MAC        Cipher                  KEX                                 Time
-192.88.99.70  connect  hmac-sha1  aes128-ctr              curve25519-sha256                   6.47
-192.88.99.70  connect  hmac-sha1  aes128-ctr              curve25519-sha256@libssh.org        5.42
-192.88.99.70  connect  hmac-sha1  aes128-ctr              diffie-hellman-group14-sha256       7.43
-192.88.99.70  connect  hmac-sha1  aes128-ctr              ecdh-sha2-nistp256                  4.8
-192.88.99.70  connect  hmac-sha1  aes128-ctr              sntrup761x25519-sha512@openssh.com  7.64
-192.88.99.70  connect  hmac-sha1  aes128-gcm@openssh.com  curve25519-sha256                   5.36
-192.88.99.70  connect  hmac-sha1  aes128-gcm@openssh.com  curve25519-sha256@libssh.org        5.43
-192.88.99.70  connect  hmac-sha1  aes128-gcm@openssh.com  diffie-hellman-group14-sha256       7.44
-192.88.99.70  connect  hmac-sha1  aes128-gcm@openssh.com  ecdh-sha2-nistp256                  4.6
-192.88.99.70  connect  hmac-sha1  aes128-gcm@openssh.com  sntrup761x25519-sha512@openssh.com  7.61
+Destination   Mode     MAC                            Cipher                         KEX                 Time
+192.88.99.70  connect  hmac-sha1                      aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.6
+192.88.99.70  connect  hmac-sha2-512-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  4.6
+192.88.99.70  connect  umac-128-etm@openssh.com       chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  4.6
+192.88.99.70  connect  umac-64@openssh.com            aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.62
+192.88.99.70  connect  hmac-sha2-512-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  4.66
+192.88.99.70  connect  umac-64-etm@openssh.com        aes128-ctr                     ecdh-sha2-nistp256  4.66
+192.88.99.70  connect  hmac-sha1                      aes128-ctr                     ecdh-sha2-nistp256  4.8
+192.88.99.70  connect  umac-64-etm@openssh.com        aes128-gcm@openssh.com         ecdh-sha2-nistp256  4.81
+192.88.99.70  connect  hmac-sha2-256                  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  5.16
+192.88.99.70  connect  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  5.17
 ```
 
 ### Sending data
 ```
 $ sh bench.sh send 192.88.99.70 show
 Destination   Mode  MAC                            Cipher                         KEX                 Time
-192.88.99.70  send  hmac-sha1                      aes128-ctr                     ecdh-sha2-nistp256  28.63
-192.88.99.70  send  hmac-sha1                      aes128-gcm@openssh.com         ecdh-sha2-nistp256  30.68
-192.88.99.70  send  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  24.6
-192.88.99.70  send  hmac-sha1-etm@openssh.com      aes128-ctr                     ecdh-sha2-nistp256  28.29
-192.88.99.70  send  hmac-sha1-etm@openssh.com      aes128-gcm@openssh.com         ecdh-sha2-nistp256  28.93
+192.88.99.70  send  hmac-sha2-512-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  23.95
+192.88.99.70  send  hmac-sha2-256-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  24.03
 192.88.99.70  send  hmac-sha1-etm@openssh.com      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  24.11
-192.88.99.70  send  hmac-sha2-256                  aes128-ctr                     ecdh-sha2-nistp256  35.61
-192.88.99.70  send  hmac-sha2-256                  aes128-gcm@openssh.com         ecdh-sha2-nistp256  29.29
+192.88.99.70  send  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  24.6
+192.88.99.70  send  umac-64@openssh.com            chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  25.09
+192.88.99.70  send  umac-64-etm@openssh.com        chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  25.42
+192.88.99.70  send  umac-128-etm@openssh.com       chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  25.48
 192.88.99.70  send  hmac-sha2-256                  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  25.69
-192.88.99.70  send  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  35.69
+192.88.99.70  send  umac-128@openssh.com           chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  25.7
+192.88.99.70  send  umac-64@openssh.com            aes128-ctr                     ecdh-sha2-nistp256  27.18
 ```
 
 ### Receiving data
 ```
 $ sh bench.sh receive 192.88.99.70 show
 Destination   Mode     MAC                            Cipher                         KEX                 Time
-192.88.99.70  receive  hmac-sha1                      aes128-ctr                     ecdh-sha2-nistp256  31.41
-192.88.99.70  receive  hmac-sha1                      aes128-gcm@openssh.com         ecdh-sha2-nistp256  31.64
 192.88.99.70  receive  hmac-sha1                      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  25.32
-192.88.99.70  receive  hmac-sha1-etm@openssh.com      aes128-ctr                     ecdh-sha2-nistp256  31.38
-192.88.99.70  receive  hmac-sha1-etm@openssh.com      aes128-gcm@openssh.com         ecdh-sha2-nistp256  34.85
-192.88.99.70  receive  hmac-sha1-etm@openssh.com      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  28.24
-192.88.99.70  receive  hmac-sha2-256                  aes128-ctr                     ecdh-sha2-nistp256  35.17
-192.88.99.70  receive  hmac-sha2-256                  aes128-gcm@openssh.com         ecdh-sha2-nistp256  30
+192.88.99.70  receive  hmac-sha2-512-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  26.28
+192.88.99.70  receive  hmac-sha2-256-etm@openssh.com  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  26.93
 192.88.99.70  receive  hmac-sha2-256                  chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  26.94
-192.88.99.70  receive  hmac-sha2-256-etm@openssh.com  aes128-ctr                     ecdh-sha2-nistp256  36.47
+192.88.99.70  receive  umac-64@openssh.com            chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  27.36
+192.88.99.70  receive  umac-128-etm@openssh.com       chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  27.73
+192.88.99.70  receive  hmac-sha1-etm@openssh.com      chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  28.24
+192.88.99.70  receive  umac-128@openssh.com           chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  28.59
+192.88.99.70  receive  umac-64-etm@openssh.com        chacha20-poly1305@openssh.com  ecdh-sha2-nistp256  28.8
+192.88.99.70  receive  umac-128-etm@openssh.com       aes128-ctr                     ecdh-sha2-nistp256  28.93
 ```
